@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.Classes.Response;
 import com.example.demo.Classes.User;
-import com.example.demo.Classes.UserwithoutId;
+import com.example.demo.Classes.UserWithoutId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,9 +17,9 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/user")
-    public String addUser(@RequestBody UserwithoutId userwithoutId){
+    public String addUser(@RequestBody UserWithoutId userWithoutId){
         User userWithId = new User();
-        userWithId=userWithId.getdetailsfromUserwithoutId(userwithoutId);
+        userWithId=userWithId.getDetailsFromUserWithoutId(userWithoutId);
 
         try {
             userService.createUser(userWithId);    //create new user
@@ -47,9 +47,9 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "/user/{usid}")
-    public String updateUser(@RequestBody UserwithoutId userWithoutId, @PathVariable Long userId){
+    public String updateUser(@RequestBody UserWithoutId userWithoutId, @PathVariable Long userId){
         User userWithId = new User();
-        userWithId=userWithId.getdetailsfromUserwithoutId(userWithoutId);
+        userWithId=userWithId.getDetailsFromUserWithoutId(userWithoutId);
         userWithId.setUserID(userId);
 
         Response response=  getUser(userId); // calling getUser(userId) to check if user exist or not with user id: usid

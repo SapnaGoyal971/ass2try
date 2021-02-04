@@ -23,16 +23,16 @@ public class User {
     private String address2;
 
 
-    public User getdetailsfromUserwithoutId(UserwithoutId u){
-        User uss = new User();
-        uss.setMobileNumber(u.getMobileNumber());
-        uss.setUserName(u.getUserName());
-        uss.setLastName(u.getLastName());
-        uss.setFirstName(u.getFirstName());
-        uss.setEmailID(u.getEmailID());
-        uss.setAddress1(u.getAddress1());
-        uss.setAddress2(u.getAddress2());
-        return uss;
+    public User getDetailsFromUserWithoutId(UserWithoutId userWithoutId){
+        User userWithId = new User();
+        userWithId.setMobileNumber(userWithoutId.getMobileNumber());
+        userWithId.setUserName(userWithoutId.getUserName());
+        userWithId.setLastName(userWithoutId.getLastName());
+        userWithId.setFirstName(userWithoutId.getFirstName());
+        userWithId.setEmailID(userWithoutId.getEmailID());
+        userWithId.setAddress1(userWithoutId.getAddress1());
+        userWithId.setAddress2(userWithoutId.getAddress2());
+        return userWithId;
     }
 
     public Long getUserID() {

@@ -4,7 +4,7 @@ package com.example.demo.Classes;
 //This is not actual class. Actual class is User which we are mapping to table and performing CRUD operations.
 //This is class without user id.
 
-public class UserwithoutId {
+public class UserWithoutId {
     private String userName;
     private Long mobileNumber;
     private String emailID;
