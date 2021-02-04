@@ -12,10 +12,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-
-    public void  createUser(User user) {
-        userRepository.save(user);
-    }
+    public void  createUser(User user) { userRepository.save(user); }
 
     public List<User> readUser(Long userid){
         List<User> us=new ArrayList<>();
