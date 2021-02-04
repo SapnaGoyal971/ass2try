@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.Classes.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +13,21 @@ public class UserService {
     private UserRepository userRepository;
 
 
-    public void  CreateUser(User user) {
+    public void  createUser(User user) {
         userRepository.save(user);
     }
 
-    public List<User> ReadUser(Long userid){
+    public List<User> readUser(Long userid){
         List<User> us=new ArrayList<>();
         userRepository.findById(userid).ifPresent(us::add);
         return us;
     }
 
-    public void UpdateUser(User user){
+    public void updateUser(User user){
         userRepository.save(user);
     }
 
-    public void DeleteUser(Long userid){
+    public void deleteUser(Long userid){
         userRepository.deleteById(userid);
     }
 

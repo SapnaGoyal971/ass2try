@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.Classes.Response;
+import com.example.demo.Classes.User;
+import com.example.demo.Classes.UserwithoutId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,59 +12,59 @@ import java.util.List;
 @RestController
 public class UserController {
 
-@Autowired
+    @Autowired
     private UserService userService;
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/user")
-    public String adduser(@RequestBody UserwithoutId user){
-        User u = new User();
-        u=u.getdetailsfromUserwithoutId(user);
+    public String addUser(@RequestBody UserwithoutId userwithoutId){
+        User userWithId = new User();
+        userWithId=userWithId.getdetailsfromUserwithoutId(userwithoutId);
 
         try {
-            userService.CreateUser(u);    //create new user
-            return "User added Successfully with user id: "+u.getUserID();
+            userService.createUser(userWithId);    //create new user
+            return "User added Successfully with user id: "+userWithId.getUserID();
         }
         catch(DataIntegrityViolationException d){  //in case of same phoneNumber or same EmailId or userName
             return "User already exists";
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user/{usid}")
-    public Response getuser(@PathVariable Long usid){
-        List<User> u= userService.ReadUser(usid);
+    @RequestMapping(method = RequestMethod.GET, value = "/user/{userId}")
+    public Response getUser(@PathVariable Long userId){
+        List<User> userList= userService.readUser(userId);
         Response response = new Response(); //this is created because we want 3 details(username, mobilenumber, emailid) out of given 6 details of user.
 
-        if(u.isEmpty()){                         //in case of user with given userID does not exist
+        if(userList.isEmpty()){                         //in case of user with given userID does not exist
             return response;
         }
         else{                                  //in order to return the details of user with given user id
-            response.emailID=u.get(0).getEmailID();
-            response.userName=u.get(0).getUserName();
-            response.mobileNumber=u.get(0).getMobileNumber();
+            response.emailID=userList.get(0).getEmailID();
+            response.userName=userList.get(0).getUserName();
+            response.mobileNumber=userList.get(0).getMobileNumber();
             return response;
         }
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "/user/{usid}")
-    public String updateuser(@RequestBody UserwithoutId u, @PathVariable Long usid){
-        User user = new User();
-        user=user.getdetailsfromUserwithoutId(u);
-        user.setUserID(usid);
+    public String updateUser(@RequestBody UserwithoutId userWithoutId, @PathVariable Long userId){
+        User userWithId = new User();
+        userWithId=userWithId.getdetailsfromUserwithoutId(userWithoutId);
+        userWithId.setUserID(userId);
 
-        Response uss=  getuser(usid); // calling getuser(usid) to check if user exist or not with user id: usid
+        Response response=  getUser(userId); // calling getUser(userId) to check if user exist or not with user id: usid
 
-        if(uss.userName==null)     //in case of user with given userID doesn't exist
+        if(response.userName==null)     //in case of user with given userID doesn't exist
             return "User doesn't exist";
 
-            userService.UpdateUser(user);  //Update user with given userID
+            userService.updateUser(userWithId);  //Update user with given userID
             return "User updated";
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{usid}")
-    public String deleteuser(@PathVariable Long usid){
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{userId}")
+    public String deleteUser(@PathVariable Long userId){
         try {
-            userService.DeleteUser(usid);  //Delete user with given userID
+            userService.deleteUser(userId);  //Delete user with given userID
             return "User deleted";
         }
          catch(EmptyResultDataAccessException d){ //in case of user with given user id doesn't exist

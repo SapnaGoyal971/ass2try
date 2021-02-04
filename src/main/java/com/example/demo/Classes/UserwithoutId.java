@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Classes;
 
 //This class is created because at adding user details time we want user's details without his id and will be generating id for him.
 //This is not actual class. Actual class is User which we are mapping to table and performing CRUD operations.
