@@ -30,8 +30,8 @@ public class UserController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/user/{userID}")
-    public Response getUser(@PathVariable Long userID){
+    @RequestMapping(method = RequestMethod.GET, value = "/user")
+    public Response getUser(@RequestParam Long userID){
         List<User> userList= userService.readUser(userID);
         Response response = new Response(); //this is created because we want 3 details(username, mobilenumber, emailid) out of given 6 details of user.
 
