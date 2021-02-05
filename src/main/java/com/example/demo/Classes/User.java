@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userID;
 
 
@@ -23,16 +23,14 @@ public class User {
     private String address2;
 
 
-    public User getDetailsFromUserWithoutId(UserWithoutId userWithoutId){
-        User userWithId = new User();
-        userWithId.setMobileNumber(userWithoutId.getMobileNumber());
-        userWithId.setUserName(userWithoutId.getUserName());
-        userWithId.setLastName(userWithoutId.getLastName());
-        userWithId.setFirstName(userWithoutId.getFirstName());
-        userWithId.setEmailID(userWithoutId.getEmailID());
-        userWithId.setAddress1(userWithoutId.getAddress1());
-        userWithId.setAddress2(userWithoutId.getAddress2());
-        return userWithId;
+    public void getDetailsFromUserWithoutId(UserWithoutId userWithoutId){
+        this.setMobileNumber(userWithoutId.getMobileNumber());
+        this.setUserName(userWithoutId.getUserName());
+        this.setLastName(userWithoutId.getLastName());
+        this.setFirstName(userWithoutId.getFirstName());
+        this.setEmailID(userWithoutId.getEmailID());
+        this.setAddress1(userWithoutId.getAddress1());
+        this.setAddress2(userWithoutId.getAddress2());
     }
 
     public Long getUserID() {
